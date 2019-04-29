@@ -1,21 +1,65 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package practica_6;
-
-/**
- *
- * @author carlosjaime
- */
-public class Practica_6 {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
+import java.io.FileReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.*;
+public class Practica_6
+{
+    public static void main (String ...argd) throws FileNotFoundException
+    {
+        Scanner in = new Scanner(new FileReader("input.txt"));
+        StringBuilder sb = new StringBuilder();
+        Boolean x;
+        
+        while(in.hasNext()) {
+            sb.append(in.next());
+        }
+        in.close();
+        String s = sb.toString();
+        
+        Stack<Character> st=new Stack<Character>();  
+        for (int i=0;i<s.length();++i)
+        {
+            if((s.charAt(i)=='(')||(s.charAt(i)=='{')||(s.charAt(i)=='['))
+            {
+                st.push(s.charAt(i));
+            }
+            else if(st.isEmpty()==false)
+            {   
+            switch(s.charAt(i))
+            {
+            case']':
+                if(st.pop()!='[')
+                {
+                    x = false;
+                    System.exit(0);
+                }
+                break;
+            case'}':
+                if(st.pop()!='{')
+                {
+                    x = false;
+                    System.exit(0);
+                }
+                break;
+            case')':
+                if(st.pop()!='(')
+                {
+                    x = false;
+                    System.exit(0);
+                }
+                break;
+            }
+            }
+        }           
+        if(st.isEmpty())
+        {
+            x = true;
+        }
+        else 
+            x = false;
+        
+        System.out.println(s + " => " + x);
+        }   
     
 }
